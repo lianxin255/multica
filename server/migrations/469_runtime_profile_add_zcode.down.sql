@@ -1,6 +1,6 @@
--- Add ZCode (Z.ai, driven over ACP through the zcode-acp-server bridge) as
--- a first-party protocol family. NOT VALID preserves historical-row tolerance
--- while enforcing the expanded whitelist for new rows.
+-- Restore the whitelist as it was before 469 added zcode (the set on
+-- upstream main after 468). Existing ZCode rows remain valid because the
+-- replacement constraint is NOT VALID, but new ZCode profiles are blocked.
 ALTER TABLE runtime_profile DROP CONSTRAINT IF EXISTS runtime_profile_protocol_family_check;
 
 ALTER TABLE runtime_profile ADD CONSTRAINT runtime_profile_protocol_family_check
@@ -10,6 +10,7 @@ ALTER TABLE runtime_profile ADD CONSTRAINT runtime_profile_protocol_family_check
         'codex',
         'copilot',
         'opencode',
+        'codearts',
         'openclaw',
         'hermes',
         'pi',
@@ -26,5 +27,7 @@ ALTER TABLE runtime_profile ADD CONSTRAINT runtime_profile_protocol_family_check
         'grok',
         'qwen',
         'qwenpaw',
-        'zcode'
+        'mcode',
+        'dim',
+        'zeroclaw'
     )) NOT VALID;
